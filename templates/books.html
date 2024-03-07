@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>書籍列表</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .title {
+            width: 200px;
+            background-color: deeppink;
+            color: white;
+            margin: 0 auto;
+            border-radius: 6px;
+        }
+
+        .book {
+            margin-top: 16px;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>書籍列表</h1>
+    {%for id in books %}
+    <div class="book">
+        <h2 class="title">{{books[id]['name']}}</h2>
+        <p class="price">價格為：
+            <span>{{books[id]['price']}}</span>
+        </p>
+        <img src="{{books[id]['image_url']}}" alt="">
+        <hr>
+    </div>
+    {% endfor %}
+
+    <!--{{books}}-->
+</body>
+
+</html>
