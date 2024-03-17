@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from datetime import datetime
-from pm25 import get_pm25
+from pm25 import get_pm25, get_six_pm25, six_countys
 import json
 
 books = {1: "Python book", 2: "Java book", 3: "Flask book"}
@@ -14,6 +14,17 @@ def pm25_charts():
     return render_template("pm25-charts.html")
 
 
+@app.route("/six-pm25-data", methods=["GET"])  # 預設為 GET
+def six_pm25_data():
+    pm25 = get_six_pm25()
+    result = json.dumps(
+        {"site": six_countys, "pm25": pm25},
+        ensure_ascii=False,
+    )
+
+    return result
+
+
 @app.route("/pm25-data")
 def pm25_data():
     columns, values = get_pm25()
@@ -21,8 +32,21 @@ def pm25_data():
     pm25 = [value[2] for value in values]
     datatime = values[0][-2]
 
+    # 取得最高最低值
+    sorted_data = sorted(values, key=lambda x: x[2])
+
+    lowest = {"site": sorted_data[0][0], "pm25": sorted_data[0][2]}
+    highest = {"site": sorted_data[-1][0], "pm25": sorted_data[-1][2]}
+
     result = json.dumps(
-        {"datetime": datatime, "site": site, "pm25": pm25}, ensure_ascii=False
+        {
+            "datetime": datatime,
+            "site": site,
+            "pm25": pm25,
+            "lowest": lowest,
+            "highest": highest,
+        },
+        ensure_ascii=False,
     )
     return result
 
