@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route("/pm25-charts")
 def pm25_charts():
     countys = get_countys()
-    return render_template("pm25-charts.html", countys=countys)
+    return render_template("pm25-charts-bulma.html", countys=countys)
 
 
 @app.route("/county-pm25-data/<county>")

@@ -79,22 +79,21 @@ function drawPM25() {
                 //console.log(result);
                 //繪製對應區塊並給予必要參數
                 //html script src= jquery
-                $("#pm25_high_site").text(result["highest"]["site"])
-                $("#pm25_high_value").text(result["highest"]["value"])
-                $("#pm25_low_site").text(result["lowest"]["site"])
-                $("#pm25_low_value").text(result["lowest"]["value"])
+                $("#pm25_high_site").text(result["highest"]["site"]);
+                $("#pm25_high_value").text(result["highest"]["pm25"]);
+                $("#pm25_low_site").text(result["lowest"]["site"]);
+                $("#pm25_low_value").text(result["lowest"]["pm25"]);
                 // document.querySelector("#pm25_high_site").innerText = result["highest"]["site"];
                 // document.querySelector("#pm25_high_value").innerText = result["highest"]["pm25"];
                 // document.querySelector("#pm25_low_site").innerText = result["lowest"]["site"];
                 // document.querySelector("#pm25_low_value").innerText = result["lowest"]["pm25"];
-                drawChart(chart1, result["datetime"], "PM2.5", result["site"], result["pm25"])
+                drawChart(chart1, result["datetime"], "PM2.5", result["site"], result["pm25"]);
                 chart1.hideLoading();
                 this.setTimeout(() => {
                     // 繪製六都平均值
                     drawSixPM25();
                     drawCountyPM25("彰化縣");
                 }, 1000);
-                //2:13:53
             },
             error: () => {
                 alert("讀取資料失敗,請稍後再試!");
